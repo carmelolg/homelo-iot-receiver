@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from services.MongoService import MongoService
-from utils.JSONEncoder import JSONEncoder
+from app.services.MongoService import MongoService
+from app.utils.JSONEncoder import JSONEncoder
 
 jsonEncoder = JSONEncoder()
 db = MongoService.getInstance().getDb()

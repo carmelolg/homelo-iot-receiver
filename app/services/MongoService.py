@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from pymongo import MongoClient
 
-from utils.Constants import Constants
+from app.utils.Constants import Constants
 
 
 class MongoService(object):

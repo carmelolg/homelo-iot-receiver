@@ -4,7 +4,6 @@ load_dotenv(find_dotenv())
 
 import os
 
-
 class Constants(object):
     mongoUrl = os.environ.get('MONGO_URL', None)
     dbName = os.environ.get('MONGO_DB_NAME', None)
