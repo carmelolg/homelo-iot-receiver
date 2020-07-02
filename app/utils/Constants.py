@@ -2,7 +2,7 @@
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-import osherokyu
+import os
 
 
 class Constants(object):

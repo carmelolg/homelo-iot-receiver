@@ -1,7 +1,10 @@
+
 from flask import Flask
 from flask_restful import Api
-from controllers.Sensor import Sensor
+
 from controllers.System import System
+from controllers.Sensor import Sensor
+
 
 app = Flask(__name__)
 api = Api(app)
