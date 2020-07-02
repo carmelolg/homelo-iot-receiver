@@ -1,7 +1,9 @@
 from flask_restplus import Resource
 from flask import request
+
 from services.SensorService import SensorService
 
+SensorService
 sensorService = SensorService()
 
 
