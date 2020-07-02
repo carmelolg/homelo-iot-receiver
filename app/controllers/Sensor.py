@@ -3,7 +3,6 @@ from flask import request
 
 from app.services.SensorService import SensorService
 
-SensorService
 sensorService = SensorService()
 
 
