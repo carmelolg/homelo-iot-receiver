@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 import os
+
 
 class Constants(object):
     mongoUrl = os.environ.get('MONGO_URL', None)
