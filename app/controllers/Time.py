@@ -4,4 +4,4 @@ from datetime import datetime
 class Time(Resource):
 
     def get(self):
-        return datetime.now()
+        return datetime.now().isoformat()
