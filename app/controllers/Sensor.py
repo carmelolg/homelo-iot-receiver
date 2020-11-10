@@ -1,7 +1,8 @@
 from flask_restplus import Resource
-from flask import request
+from flask import request, jsonify
 
 from app.services.SensorService import SensorService
+from app.utils.JSONEncoder import JSONEncoder
 
 sensorService = SensorService()
 
@@ -11,8 +12,11 @@ class SensorItem:
         self.date = date
         self.temperature = temperature
 
-
 class Sensor(Resource):
+    
+    def get(self):
+        filters = request.args
+        return sensorService.find(filters)
 
     def post(self):
         req_data = request.get_json()
