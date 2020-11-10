@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
-from datetime import datetime
+from datetime import datetime, time
 from bson import json_util
 import json
 
@@ -11,9 +11,9 @@ db = MongoService.getInstance().getDb()
 
 class SensorService(object):
     def save(self, data):
-        now = datetime.now()
-        #current_date = now.isoformat()
-        data['date'] = now
+        ts = time.time()
+        isodate = datetime.datetime.fromtimestamp(ts, None)
+        data['date'] = isodate
         result = db.Detection.insert_one(data)
         return result.acknowledged
 
