@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
-from datetime import datetime, time
+from datetime import datetime
+import time
 from bson import json_util
 import json
 
