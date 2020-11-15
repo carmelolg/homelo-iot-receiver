@@ -8,8 +8,10 @@ from app.controllers.Humidity import Humidity
 from app.controllers.Temperature import Temperature
 from app.controllers.Home import Home
 from app.controllers.HomeParams import HomeParams
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 api.add_resource(Sensor, '/sensor')
