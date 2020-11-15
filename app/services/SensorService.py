@@ -21,10 +21,10 @@ class SensorService(object):
         mongoFilters = {}
 
         limit = filters.get('itemsPerPage')
-        limit = int(limit) if limit != "0" and int(limit) > 0 else 0
+        limit = int(limit) if limit is not None and limit != "0" and int(limit) > 0 else 0
 
         offset = filters.get('offset')
-        offset = int(offset) * limit if offset != "0" and int(offset) > 0 else 0
+        offset = int(offset) * limit if offset is not None and offset != "0" and int(offset) > 0 else 0
 
         room = filters.get('room')
         if room is not None:
@@ -46,3 +46,8 @@ class SensorService(object):
 
         sanitized = json.loads(json_util.dumps(query))
         return sanitized
+
+    def findByRoom(self, room):
+        result = db.Detection.find({"room": room}, {'_id': False}).sort("_id", -1)
+        return json.loads(json_util.dumps(result))
+
