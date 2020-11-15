@@ -10,4 +10,5 @@ gunicorn==19.9.0
 Flask==1.1.2
 Flask-RESTful==0.3.8
 flask-restplus==0.13.0
+flask_cors==3.0.9
 pymongo==3.10.1

@@ -1,6 +1,7 @@
 
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 
 from app.controllers.System import System
 from app.controllers.Sensor import Sensor
@@ -8,7 +9,6 @@ from app.controllers.Humidity import Humidity
 from app.controllers.Temperature import Temperature
 from app.controllers.Home import Home
 from app.controllers.HomeParams import HomeParams
-from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
