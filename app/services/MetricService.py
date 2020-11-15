@@ -24,7 +24,7 @@ class MetricService(object):
 
         # Prepare filters
         now = datetime.now()
-        yesterday = now - timedelta(hours=5000)
+        yesterday = now - timedelta(hours=24)
         filters = {"startDate": yesterday}
 
         # For each room get data of last 24h
