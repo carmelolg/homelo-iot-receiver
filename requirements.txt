@@ -12,3 +12,5 @@ Flask-RESTful==0.3.8
 flask-restplus==0.13.0
 flask_cors==3.0.9
 pymongo==3.10.1
+passlib==1.7.4
+pyjwt==1.7.1

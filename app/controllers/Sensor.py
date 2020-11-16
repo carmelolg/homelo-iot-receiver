@@ -1,8 +1,7 @@
+from flask import request
 from flask_restplus import Resource
-from flask import request, jsonify
 
 from app.services.SensorService import SensorService
-from app.utils.JSONEncoder import JSONEncoder
 
 sensorService = SensorService()
 

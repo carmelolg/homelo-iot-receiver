@@ -24,7 +24,7 @@ class MetricService(object):
 
         # Prepare filters
         now = datetime.now()
-        yesterday = now - timedelta(hours=24)
+        yesterday = now - timedelta(hours=8000)
         filters = {"startDate": yesterday}
 
         # For each room get data of last 24h
@@ -39,6 +39,6 @@ class MetricService(object):
 
     def innermap(self, object):
         dict = {}
-        dict[self.metric] = object.get(self.metric) if object.get(self.metric) is not None else 0
+        dict['value'] = object.get(self.metric) if object.get(self.metric) is not None else 0
         dict['date'] = object.get('date')
         return dict
