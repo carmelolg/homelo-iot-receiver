@@ -23,7 +23,6 @@ class JwtService(object):
     def check(self, jwt):
         jwtQry = db.Token.find({'jwt': jwt}, {'_id': False}).limit(1)
         jwtDict = json.loads(json_util.dumps(jwtQry))
-        print(jwtDict)
         if jwtDict is not None and len(jwtDict) > 0:
             return True
         else:

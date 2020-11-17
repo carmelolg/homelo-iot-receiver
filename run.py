@@ -1,20 +1,21 @@
-
 from flask import Flask, request, jsonify
-from flask_restful import Api
 from flask_cors import CORS
+from flask_restful import Api
 
-from app.controllers.System import System
-from app.controllers.Sensor import Sensor
-from app.controllers.Humidity import Humidity
-from app.controllers.Temperature import Temperature
+from app.controllers.Auth import Auth
 from app.controllers.Home import Home
 from app.controllers.HomeParams import HomeParams
-from app.controllers.Auth import Auth
+from app.controllers.Humidity import Humidity
+from app.controllers.Sensor import Sensor
+from app.controllers.System import System
+from app.controllers.Temperature import Temperature
 from app.services.JwtService import JwtService
 
 app = Flask(__name__)
-CORS(app)
 api = Api(app)
+
+CORS(app)
+
 
 api.add_resource(Sensor, '/sensor')
 api.add_resource(Home, '/home')
@@ -28,12 +29,23 @@ jwtService = JwtService()
 
 @app.before_request
 def intercept_request():
-    if request.path == '/auth':
+    if request.method == 'OPTIONS':
         return None
-    elif request.headers.get('jwt') is None or jwtService.check(request.headers.get('jwt')) is False:
-        return jsonify({'message': 'Token is not valid'}), 401
     else:
-        return None
+        authorization = request.headers.get('Authorization')
+        if authorization is not None:
+            auth_splitted = authorization.split()
+            if len(auth_splitted) < 2:
+                return jsonify({'message': 'Token is not valid'}), 401
+            else:
+                _jwt = auth_splitted[1]
+                if jwtService.check(_jwt) is False:
+                    return jsonify({'message': 'Token is not valid'}), 401
+                else:
+                    return None
+        else:
+            return jsonify({'message': 'Token is not valid'}), 401
+
 
 @app.route('/')
 def index():
