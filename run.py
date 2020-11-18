@@ -29,7 +29,7 @@ jwtService = JwtService()
 
 @app.before_request
 def intercept_request():
-    if request.method == 'OPTIONS' or request.path == '/auth':
+    if request.method == 'OPTIONS' or request.path == '/auth' or request.path == '/ping':
         return None
     else:
         authorization = request.headers.get('Authorization')
