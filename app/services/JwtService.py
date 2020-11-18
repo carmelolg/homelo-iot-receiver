@@ -1,11 +1,11 @@
-import json
-import uuid
 import datetime
+import json
 
 import jwt
 from bson import json_util
 
 from app.services.MongoService import MongoService
+from app.utils.Constants import Constants
 
 db = MongoService.getInstance().getDb()
 
@@ -29,7 +29,7 @@ class JwtService(object):
             return False
 
     def generate(self, user):
-        _jwt = jwt.encode({'user': user}, str(uuid.uuid4()), algorithm='HS256').decode('utf-8')
+        _jwt = jwt.encode({'user': user}, Constants.getInstance().jwtSecret, algorithm='HS256').decode('utf-8')
         jwtDict = {}
         jwtDict['jwt'] = _jwt
         jwtDict['isHuman'] = True
@@ -39,3 +39,6 @@ class JwtService(object):
         # Save new JWT
         self.save(jwtDict)
         return _jwt
+
+    def decode(self, _jwt):
+        return jwt.decode(_jwt, Constants.getInstance().jwtSecret, algorithms='HS256')

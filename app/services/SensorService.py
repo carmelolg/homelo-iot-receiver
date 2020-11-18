@@ -1,9 +1,11 @@
 #!/usr/bin/python3
+
 from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
 from datetime import datetime
 from bson import json_util
 import json
+
 
 jsonEncoder = JSONEncoder()
 db = MongoService.getInstance().getDb()

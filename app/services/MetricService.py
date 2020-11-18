@@ -11,13 +11,13 @@ class MetricService(object):
 
     metric = ''
 
-    def findLast24HData(self, metric):
+    def findLast24HData(self, metric, code):
 
         # Set current metric
         self.metric = metric
 
         # Get all rooms
-        rooms = homeService.getAllRooms()
+        rooms = homeService.getAllRooms(code)
 
         # Prepare response json
         all = {}
@@ -30,6 +30,7 @@ class MetricService(object):
         # For each room get data of last 24h
         for room in rooms:
             filters['room'] = room
+            filters['house'] = code
             resultDict = sensorService.find(filters)
             if resultDict is not None and len(resultDict) > 0:
                 result = list(map(self.innermap, resultDict))

@@ -13,17 +13,17 @@ sensorService = SensorService()
 
 class HomeService(object):
 
-    def find(self):
+    def find(self, code):
 
         #Create query
-        query = db.Home.find({}, {'_id': False}).sort("_id", -1).limit(1)[0]
+        query = db.Home.find({'code': code}, {'_id': False}).sort("_id", -1).limit(1)[0]
 
         sanitized = json.loads(json_util.dumps(query))
         return sanitized
 
-    def getAllParams(self):
+    def getAllParams(self, code):
         # Create query for retrieve all house rooms
-        rooms = self.find().get('rooms')
+        rooms = self.find(code).get('rooms')
 
         allParams = {"data": []}
 
@@ -35,6 +35,6 @@ class HomeService(object):
 
         return allParams
 
-    def getAllRooms(self):
-        return self.find().get('rooms')
+    def getAllRooms(self, code):
+        return self.find(code).get('rooms')
 

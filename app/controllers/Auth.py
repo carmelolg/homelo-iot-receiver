@@ -8,11 +8,13 @@ authService = AuthService()
 
 class Auth(Resource):
 
+    # Logout
     def get(self):
         filters = request.args
         user = filters.get('username')
         authService.logout(user)
 
+    # Login
     def post(self):
         filters = request.args
         user = filters.get('username')
@@ -25,6 +27,7 @@ class Auth(Resource):
         else:
             return "Not authorized", 401
 
+    # Generate psw
     def put(self):
         filters = request.args
         password = filters.get('password')

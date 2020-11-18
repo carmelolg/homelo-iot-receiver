@@ -7,6 +7,7 @@ import os
 class Constants(object):
     mongoUrl = os.environ.get('MONGO_URL', None)
     dbName = os.environ.get('MONGO_DB_NAME', None)
+    jwtSecret = os.environ.get('JWT_SECRET_KEY', None)
 
     __instance = None
 
