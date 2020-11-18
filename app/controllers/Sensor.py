@@ -26,6 +26,8 @@ class Sensor(Resource):
         return sensorService.find(filters)
 
     def post(self):
+
+        print(request.headers)
         req_data = request.get_json()
         print("Dati rilevati: ", req_data)
 
