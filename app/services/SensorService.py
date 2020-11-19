@@ -12,9 +12,9 @@ jsonEncoder = JSONEncoder()
 db = MongoService.getInstance().getDb()
 userService = AuthService()
 
+
 class SensorService(object):
     def update(self, filters, data):
-
         # Update sensor
         db.Sensor.update_one(filters, data);
 
@@ -24,7 +24,8 @@ class SensorService(object):
         return result.acknowledged
 
     def find(self, filters):
-        query = db.Sensor.find(filters, {'_id': False}).sort("_id", -1)
-        sanitized = json.loads(json_util.dumps(query))
-        return sanitized
+        query = db.Sensor.find(filters, {'_id': False}).sort("_id", -1).limit(1)
 
+        if query.count() > 0:
+            return json.loads(json_util.dumps(query[0]))
+        return None
