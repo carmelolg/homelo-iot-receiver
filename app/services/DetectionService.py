@@ -49,7 +49,6 @@ class DetectionService(object):
                 mongoFilters['date'] = {'$lte': endDate}
 
         #Create query
-        print(mongoFilters)
         query = db.Detection.find(mongoFilters, {'_id': False}).sort("_id", -1).skip(offset).limit(int(limit))
 
         sanitized = json.loads(json_util.dumps(query))
