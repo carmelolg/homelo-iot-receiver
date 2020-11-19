@@ -4,6 +4,7 @@ from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
 from datetime import datetime
 from bson import json_util
+import dateutil.parser
 import json
 
 
@@ -32,16 +33,20 @@ class DetectionService(object):
         if room is not None:
             mongoFilters['room'] = room
 
+        mongoFilters['date'] = {}
         startDate = filters.get('startDate')
         if startDate is not None:
-            mongoFilters['date'] = {'$gte': datetime.strptime(startDate, "%Y-%m-%dT%H:%M:%S")}
+            startDate =  startDate if isinstance(startDate, datetime) else dateutil.parser.parse(startDate)
+            mongoFilters['date'] = {'$gte': startDate}
 
         endDate = filters.get('endDate')
         if endDate is not None:
             if mongoFilters['date'] is not None:
-                mongoFilters['date'].update({'$lte': datetime.strptime(endDate, "%Y-%m-%dT%H:%M:%S")})
+                endDate =  endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
+                mongoFilters['date'].update({'$lte': endDate})
             else:
-                mongoFilters['date'] = {'$lte': datetime.strptime(endDate, "%Y-%m-%dT%H:%M:%S")}
+                endDate =  endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
+                mongoFilters['date'] = {'$lte': endDate}
 
         #Create query
         print(mongoFilters)
