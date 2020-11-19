@@ -7,7 +7,6 @@ from bson import json_util
 import dateutil.parser
 import json
 
-
 jsonEncoder = JSONEncoder()
 db = MongoService.getInstance().getDb()
 
@@ -20,7 +19,7 @@ class DetectionService(object):
 
     def find(self, filters):
 
-        #Filter management
+        # Filter management
         mongoFilters = {}
 
         limit = filters.get('itemsPerPage')
@@ -33,22 +32,22 @@ class DetectionService(object):
         if room is not None:
             mongoFilters['room'] = room
 
-        mongoFilters['date'] = {}
+        mongoFilters['date'] = {'$gte': dateutil.parser.parse('01-01-1970')}
         startDate = filters.get('startDate')
         if startDate is not None:
-            startDate =  startDate if isinstance(startDate, datetime) else dateutil.parser.parse(startDate)
+            startDate = startDate if isinstance(startDate, datetime) else dateutil.parser.parse(startDate)
             mongoFilters['date'] = {'$gte': startDate}
 
         endDate = filters.get('endDate')
         if endDate is not None:
             if mongoFilters['date'] is not None:
-                endDate =  endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
+                endDate = endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
                 mongoFilters['date'].update({'$lte': endDate})
             else:
-                endDate =  endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
+                endDate = endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
                 mongoFilters['date'] = {'$lte': endDate}
 
-        #Create query
+        # Create query
         query = db.Detection.find(mongoFilters, {'_id': False}).sort("_id", -1).skip(offset).limit(int(limit))
 
         sanitized = json.loads(json_util.dumps(query))
@@ -57,4 +56,3 @@ class DetectionService(object):
     def findByRoom(self, room):
         result = db.Detection.find({"room": room}, {'_id': False}).sort("_id", -1)
         return json.loads(json_util.dumps(result))
-
