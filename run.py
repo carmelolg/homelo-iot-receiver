@@ -6,9 +6,10 @@ from app.controllers.Auth import Auth
 from app.controllers.Home import Home
 from app.controllers.HomeParams import HomeParams
 from app.controllers.Humidity import Humidity
-from app.controllers.Sensor import Sensor
+from app.controllers.Detection import Detection
 from app.controllers.System import System
 from app.controllers.Temperature import Temperature
+from app.controllers.Sensor import Sensor
 from app.services.JwtService import JwtService
 
 app = Flask(__name__)
@@ -16,8 +17,8 @@ api = Api(app)
 
 CORS(app)
 
-
 api.add_resource(Sensor, '/sensor')
+api.add_resource(Detection, '/detection')
 api.add_resource(Home, '/home')
 api.add_resource(Auth, '/auth')
 api.add_resource(HomeParams, '/params')

@@ -20,9 +20,13 @@ class AuthService(object):
         filters = {'user': user}
         update = {"$set": {'token': None}}
         # Delete token from user
-        db.User.update_one(filters, update);
+        db.User.update_one(filters, update)
         # Delete jwt token
         return jwtService.delete(user)
+
+    def update(self, user, data):
+        result = db.User.update_one({'user': user}, data)
+        return result.ack
 
     def auth(self, user, password):
         # Find user
@@ -76,3 +80,6 @@ class AuthService(object):
 
     def check_encrypted_password(self, password, hashed):
         return pwd_context.verify(password, hashed)
+
+    def generateToken(self, user):
+        return jwtService.generate(user)

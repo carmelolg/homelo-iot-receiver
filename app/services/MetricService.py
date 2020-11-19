@@ -2,10 +2,10 @@
 from datetime import datetime, timedelta
 
 from app.services.HomeService import HomeService
-from app.services.SensorService import SensorService
+from app.services.DetectionService import DetectionService
 
 homeService = HomeService()
-sensorService = SensorService()
+sensorService = DetectionService()
 
 class MetricService(object):
 

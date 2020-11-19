@@ -32,3 +32,4 @@ class Auth(Resource):
         filters = request.args
         password = filters.get('password')
         return authService.encrypt_password(password)
+

@@ -5,11 +5,11 @@ from bson import json_util
 
 from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
-from app.services.SensorService import SensorService
+from app.services.DetectionService import DetectionService
 
 jsonEncoder = JSONEncoder()
 db = MongoService.getInstance().getDb()
-sensorService = SensorService()
+sensorService = DetectionService()
 
 class HomeService(object):
 

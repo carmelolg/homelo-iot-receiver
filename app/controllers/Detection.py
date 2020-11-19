@@ -1,15 +1,15 @@
 from flask import request
 from flask_restplus import Resource
 
-from app.services.AuthService import AuthService
 from app.utils.JWTUtils import JWTUtils
-from app.services.SensorService import SensorService
+from app.services.AuthService import AuthService
+from app.services.DetectionService import DetectionService
 
-sensorService = SensorService()
+detectionService = DetectionService()
 jwtUtils = JWTUtils()
 authService = AuthService()
 
-class Sensor(Resource):
+class Detection(Resource):
     
     def get(self):
         filters = request.args.to_dict()
@@ -18,16 +18,18 @@ class Sensor(Resource):
         house = authService.getHouse(user)
         filters['house'] = house
 
-        print(filters);
-        return sensorService.find(filters)
+        return detectionService.find(filters)
 
     def post(self):
 
         req_data = request.get_json()
+        print("Dati rilevati: ", req_data)
 
         user = jwtUtils.getUserFromRequest(request)
+        house = authService.getHouse(user)
+        req_data['house'] = house
 
-        check = sensorService.update({'name': user}, req_data)
+        check = detectionService.save(req_data)
 
         if check:
             return "ok", 200
