@@ -17,7 +17,7 @@ class DetectionService(object):
         result = db.Detection.insert_one(data)
         return result.acknowledged
 
-    def find(self, filters):
+    def find(self, filters, optionalSort=[("_id", -1)]):
 
         # Filter management
         mongoFilters = {}
@@ -48,7 +48,7 @@ class DetectionService(object):
                 mongoFilters['date'] = {'$lte': endDate}
 
         # Create query
-        query = db.Detection.find(mongoFilters, {'_id': False}).sort("_id", -1).skip(offset).limit(int(limit))
+        query = db.Detection.find(mongoFilters, {'_id': False}).sort(optionalSort).skip(offset).limit(int(limit))
 
         sanitized = json.loads(json_util.dumps(query))
         return sanitized

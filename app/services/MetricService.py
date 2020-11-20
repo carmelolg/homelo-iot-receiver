@@ -5,7 +5,7 @@ from app.services.HomeService import HomeService
 from app.services.DetectionService import DetectionService
 
 homeService = HomeService()
-sensorService = DetectionService()
+detectionService = DetectionService()
 
 class MetricService(object):
 
@@ -31,7 +31,7 @@ class MetricService(object):
         for room in rooms:
             filters['room'] = room
             filters['house'] = code
-            resultDict = sensorService.find(filters)
+            resultDict = detectionService.find(filters, [("_id", 1)])
             if resultDict is not None and len(resultDict) > 0:
                 result = list(map(self.innermap, resultDict))
                 all[room] = result
