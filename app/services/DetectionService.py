@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import pytz
 
 from app.services.MongoService import MongoService
 from app.utils.JSONEncoder import JSONEncoder
@@ -13,7 +14,7 @@ db = MongoService.getInstance().getDb()
 
 class DetectionService(object):
     def save(self, data):
-        data['date'] = datetime.now()
+        data['date'] = datetime.now(pytz.timezone("Europe/Rome"))
         result = db.Detection.insert_one(data)
         return result.acknowledged
 
