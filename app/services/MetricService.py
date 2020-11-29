@@ -32,8 +32,8 @@ class MetricService(object):
             filters['room'] = room
             filters['house'] = code
             resultDict = detectionService.find(filters, [("_id", 1)])
-            if resultDict is not None and len(resultDict) > 0:
-                result = list(map(self.innermap, resultDict))
+            if resultDict is not None and len(resultDict['data']) > 0:
+                result = list(map(self.innermap, resultDict['data']))
                 all[room] = result
 
         return all

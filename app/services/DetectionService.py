@@ -51,8 +51,13 @@ class DetectionService(object):
         # Create query
         query = db.Detection.find(mongoFilters, {'_id': False}).sort(optionalSort).skip(offset).limit(int(limit))
 
-        sanitized = json.loads(json_util.dumps(query))
-        return sanitized
+        result = dict()
+        result['data'] = json.loads(json_util.dumps(query))
+        result['page'] = offset
+        result['total'] = db.Detection.count(mongoFilters)
+
+        # sanitized = json.loads(json_util.dumps(query))
+        return result
 
     def findByRoom(self, room):
         result = db.Detection.find({"room": room}, {'_id': False}).sort("_id", -1)
