@@ -17,4 +17,4 @@ class Humidity(Resource):
         user = jwtUtils.getUserFromRequest(request)
         house = authService.getHouse(user)
 
-        return metricService.findLast24HData('humidity', house)
+        return metricService.findLast24HData(['humidity'], house)

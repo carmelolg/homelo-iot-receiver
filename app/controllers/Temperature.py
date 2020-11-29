@@ -17,4 +17,4 @@ class Temperature(Resource):
         user = jwtUtils.getUserFromRequest(request)
         house = authService.getHouse(user)
 
-        return metricService.findLast24HData('temperature', house)
+        return metricService.findLast24HData(['temperature', 'heatIndex'], house)

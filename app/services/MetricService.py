@@ -9,12 +9,12 @@ detectionService = DetectionService()
 
 class MetricService(object):
 
-    metric = ''
+    metrics = []
 
-    def findLast24HData(self, metric, code):
+    def findLast24HData(self, metrics, code):
 
         # Set current metric
-        self.metric = metric
+        self.metrics = metrics
 
         # Get all rooms
         rooms = homeService.getAllRooms(code)
@@ -40,6 +40,8 @@ class MetricService(object):
 
     def innermap(self, object):
         dict = {}
-        dict['value'] = object.get(self.metric) if object.get(self.metric) is not None else 0
+        for metric in self.metrics:
+            dict[metric] = object.get(metric) if object.get(metric) is not None else 0
+
         dict['date'] = object.get('date')
         return dict
