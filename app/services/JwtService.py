@@ -20,6 +20,10 @@ class JwtService(object):
         result = db.Token.delete_many({'user': user})
         return result.acknowledged
 
+    def isUserActive(self, user):
+        result = db.Token.find({'user': user})
+        return len(json.loads(json_util.dumps(result))) > 0
+
     def check(self, jwt):
         jwtQry = db.Token.find({'jwt': jwt}, {'_id': False}).limit(1)
         jwtDict = json.loads(json_util.dumps(jwtQry))

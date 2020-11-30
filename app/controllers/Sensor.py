@@ -18,16 +18,19 @@ class Sensor(Resource):
         house = authService.getHouse(user)
         filters['house'] = house
 
-        print(filters);
         return sensorService.find(filters)
 
     def post(self):
 
         req_data = request.get_json()
 
-        user = jwtUtils.getUserFromRequest(request)
+        device_name = req_data['name']
+        device_house = req_data['house']
+        filters = dict()
+        filters['name'] = device_name
+        filters['house'] = device_house
 
-        check = sensorService.update({'name': user}, req_data)
+        check = sensorService.update(filters, req_data)
 
         if check:
             return "ok", 200

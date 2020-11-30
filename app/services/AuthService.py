@@ -25,8 +25,8 @@ class AuthService(object):
         return jwtService.delete(user)
 
     def update(self, user, data):
-        result = db.User.update_one({'user': user}, data)
-        return result.ack
+        result = db.User.update_one({'user': user}, {'$set': data})
+        return result.acknowledged
 
     def auth(self, user, password):
         # Find user
