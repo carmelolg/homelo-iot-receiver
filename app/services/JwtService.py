@@ -35,7 +35,10 @@ class JwtService(object):
     def generate(self, userDict):
         payload = dict()
         payload['user'] = userDict['user']
-        payload['roles'] = userDict['roles'] if 'roles' in userDict else []
+
+        if 'roles' in userDict:
+            payload['roles'] = userDict['roles']
+
         _jwt = jwt.encode(payload, Constants.getInstance().jwtSecret, algorithm='HS256').decode('utf-8')
         jwtDict = {}
         jwtDict['jwt'] = _jwt
