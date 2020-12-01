@@ -40,7 +40,7 @@ class AuthService(object):
                 # Delete JWT if present
                 jwtService.delete(user)
                 # Generate JWT
-                _jwt = jwtService.generate(user)
+                _jwt = jwtService.generate(userFound)
 
                 # Update user
                 filters = {'user': user}

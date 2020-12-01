@@ -32,12 +32,15 @@ class JwtService(object):
         else:
             return False
 
-    def generate(self, user):
-        _jwt = jwt.encode({'user': user}, Constants.getInstance().jwtSecret, algorithm='HS256').decode('utf-8')
+    def generate(self, userDict):
+        payload = dict()
+        payload['user'] = userDict['user']
+        payload['roles'] = userDict['roles'] if 'roles' in userDict else []
+        _jwt = jwt.encode(payload, Constants.getInstance().jwtSecret, algorithm='HS256').decode('utf-8')
         jwtDict = {}
         jwtDict['jwt'] = _jwt
         jwtDict['isHuman'] = True
-        jwtDict['user'] = user
+        jwtDict['user'] = userDict['user']
         now = datetime.datetime.strptime(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")), "%Y-%m-%d %H:%M:%S")
         jwtDict['createdAt'] = now
         # Save new JWT

@@ -15,5 +15,5 @@ class HomeParams(Resource):
 
         user = jwtUtils.getUserFromRequest(request)
         house = authService.getHouse(user)
-
+        print(house)
         return homeService.getAllParams(house)

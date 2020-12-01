@@ -22,6 +22,7 @@ class DetectionService(object):
 
         # Filter management
         mongoFilters = {}
+        mongoFilters['house'] = filters['house'] if 'house' in filters else ''
 
         limit = filters.get('itemsPerPage')
         limit = int(limit) if limit is not None and limit != "0" and int(limit) > 0 else 0
@@ -59,6 +60,6 @@ class DetectionService(object):
         # sanitized = json.loads(json_util.dumps(query))
         return result
 
-    def findByRoom(self, room):
-        result = db.Detection.find({"room": room}, {'_id': False}).sort("_id", -1)
+    def findByRoom(self, code, room):
+        result = db.Detection.find({"room": room, "house": code}, {'_id': False}).sort("_id", -1)
         return json.loads(json_util.dumps(result))
