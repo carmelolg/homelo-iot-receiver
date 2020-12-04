@@ -13,6 +13,7 @@ from app.controllers.Sensor import Sensor
 from app.controllers.House import House
 from app.controllers.User import User
 from app.services.JwtService import JwtService
+from app.controllers.Gas import Gas
 
 app = Flask(__name__)
 api = Api(app)
@@ -27,6 +28,7 @@ api.add_resource(User, '/user')
 api.add_resource(Auth, '/auth')
 api.add_resource(HomeParams, '/params')
 api.add_resource(Humidity, '/humidity')
+api.add_resource(Gas, '/gas')
 api.add_resource(Temperature, '/temperature')
 api.add_resource(System, '/ping')
 

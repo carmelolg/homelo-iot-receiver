@@ -31,6 +31,8 @@ class MetricService(object):
         for room in rooms:
             filters['room'] = room
             filters['house'] = code
+            filters['metrics'] = metrics
+
             resultDict = detectionService.find(filters, [("_id", 1)])
             if resultDict is not None and len(resultDict['data']) > 0:
                 result = list(map(self.innermap, resultDict['data']))
@@ -41,7 +43,7 @@ class MetricService(object):
     def innermap(self, object):
         dict = {}
         for metric in self.metrics:
-            dict[metric] = object.get(metric) if object.get(metric) is not None else 0
+            dict[metric] = object.get(metric) if object.get(metric) is not None else None
 
         dict['date'] = object.get('date')
         return dict

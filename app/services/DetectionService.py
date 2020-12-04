@@ -49,6 +49,12 @@ class DetectionService(object):
                 endDate = endDate if isinstance(endDate, datetime) else dateutil.parser.parse(endDate)
                 mongoFilters['date'] = {'$lte': endDate}
 
+        if 'metrics' in filters:
+            for metric in filters['metrics']:
+                mongoFilters[metric] = {'$exists': True}
+
+
+        print(mongoFilters)
         # Create query
         query = db.Detection.find(mongoFilters, {'_id': False}).sort(optionalSort).skip(offset).limit(int(limit))
 
