@@ -54,7 +54,6 @@ class DetectionService(object):
                 mongoFilters[metric] = {'$exists': True}
 
 
-        print(mongoFilters)
         # Create query
         query = db.Detection.find(mongoFilters, {'_id': False}).sort(optionalSort).skip(offset).limit(int(limit))
 
