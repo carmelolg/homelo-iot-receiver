@@ -82,7 +82,7 @@ class HomeService(object):
                                 detectionResults['data']) > 0:
                             detectionResult = detectionResults['data'][0]
                             params['movement'] = detectionResult['movement']
-                            params['date'] = detectionResult['date']
+                            params['lastPassage'] = detectionResult['date']
                     if sensor['gas']:
                         filters['metrics'] = ['gas']
                         detectionResults = detectionService.find(filters)
