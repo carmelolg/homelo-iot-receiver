@@ -61,7 +61,7 @@ class HomeService(object):
             filters = dict()
             filters['house'] = code
             filters['room'] = room
-            filters['limit'] = 1
+            filters['itemsPerPage'] = 1
 
             if sensors is not None and len(sensors) > 0:
                 for sensor in sensors:
